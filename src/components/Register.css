@@ -7,7 +7,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 630px;
+}
+@media (min-width: 768px) {
+  .content {
+    justify-content: flex-end;
+  }
 }
 
 .form {

@@ -1,1 +1,3 @@
-{"workspaceIp": "localhost"}
+{
+  "workspaceIp": "localhost:3000"
+}
