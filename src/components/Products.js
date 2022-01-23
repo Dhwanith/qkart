@@ -17,11 +17,6 @@ import "./Products.css";
 
 
 const Products = () => {
-
-
-
-
-
   return (
     <div>
       <Header hasHiddenAuthButtons={true} />
