@@ -131,7 +131,7 @@ const Register = () => {
       justifyContent="space-between"
       minHeight="100vh"
     >
-      <Header hasHiddenAuthButtons={false} />
+      <Header />
       <Box className="content">
         <Stack spacing={2} className="form">
           <h2 className="title">Register</h2>
