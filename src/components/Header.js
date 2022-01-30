@@ -52,10 +52,6 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
 
     const textField = children;
   
-    // useEffect(() => {
-    //   console.log(Array.from(children));
-    // })
-  
     return (
       <Box className="header">
         <Box className="header-title">

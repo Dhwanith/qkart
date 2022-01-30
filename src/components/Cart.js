@@ -4,7 +4,12 @@ import {
   ShoppingCart,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { Button, IconButton, Stack } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Stack,
+  Typography
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -32,8 +37,9 @@ export const getTotalCartValue = (items = []) => {
   return totalCost;
 };
 
+
 export const getTotalItems = (items = []) => {
-  return items.length
+  return items.length;
 };
 
 
@@ -41,27 +47,41 @@ const ItemQuantity = ({
   value,
   handleAdd,
   handleDelete,
+  isReadOnly
 }) => {
   return (
     <Stack direction="row" alignItems="center">
-      <IconButton size="small" color="primary" onClick={handleDelete}>
-        <RemoveOutlined />
-      </IconButton>
+      {
+        isReadOnly ? '' :
+          (<IconButton size="small" color="primary" onClick={handleDelete}>
+            <RemoveOutlined />
+          </IconButton>)
+      }
       <Box padding="0.5rem" data-testid="item-qty">
-        {value}
+        {
+          isReadOnly === true ?
+            <Typography component="div" mr={4} className="is-read-only">Qty: {value}</Typography> :
+            value
+        }
       </Box>
-      <IconButton size="small" color="primary" onClick={handleAdd}>
-        <AddOutlined />
-      </IconButton>
+      {
+        isReadOnly === true ? '' :
+          (<IconButton size="small" color="primary" onClick={handleAdd}>
+            <AddOutlined />
+          </IconButton>)
+      }
     </Stack>
   );
 };
-
 
 const Cart = ({
   products,
   items = [],
   handleQuantity,
+  isReadOnly,
+  validateRequest,
+  addresses,
+  performCheckout
 }) => {
   const history = useHistory();
 
@@ -76,9 +96,8 @@ const Cart = ({
     );
   }
 
-  const cartItems = generateCartItemsFrom(items, products);
+  const cartItems = isReadOnly ? items : generateCartItemsFrom(items, products);
   const token = localStorage.getItem('token');
-  
 
   return (
     <>
@@ -89,9 +108,7 @@ const Cart = ({
               <Box className="image-container">
                 <img
                   src={cartItem.image}
-                  alt=""
-                  width="100%"
-                  height="100%"
+                  alt={cartItem.name}
                 />
               </Box>
               <Box
@@ -113,6 +130,7 @@ const Cart = ({
                       handleQuantity(token, items, products, cartItem._id, cartItem.qty + 1)}
                     handleDelete={() =>
                       handleQuantity(token, items, products, cartItem._id, cartItem.qty - 1)}
+                    isReadOnly={isReadOnly}
                   />
                   <Box padding="0.5rem" fontWeight="700">
                     ${cartItem.cost}
@@ -148,7 +166,15 @@ const Cart = ({
             variant="contained"
             startIcon={<ShoppingCart />}
             className="checkout-btn"
-            onClick={() => { history.push("/checkout") }}
+            onClick={() => {
+              if (isReadOnly) {
+                if (validateRequest(cartItems, addresses)) {
+                  performCheckout(token, cartItems, addresses);
+                }
+              } else {
+                history.push("/checkout");
+              }
+            }}
           >
             Checkout
           </Button>

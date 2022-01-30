@@ -250,7 +250,7 @@ const Products = () => {
         {
           token ? 
             (<Grid item md={4} xs={12} style={{ backgroundColor: "#E9F5E1" }}>
-              <Cart products={allProducts} items={items} handleQuantity={addToCart} />
+              <Cart isReadOnly={false} products={allProducts} items={items} handleQuantity={addToCart} />
             </Grid>) :
             null
         }
