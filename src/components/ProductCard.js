@@ -11,34 +11,33 @@ import {
 import React from "react";
 import "./ProductCard.css";
 
+const ProductCard = ({ items, token, products, product, handleAddToCart }) => {
 
-// {
-//   "name": "Tan Leatherette Weekender Duffle",
-//     "category": "Fashion",
-//       "cost": 150,
-//         "rating": 4,
-//           "image": "https://crio-directus-assets.s3.ap-south-1.amazonaws.com/ff071a1c-1099-48f9-9b03-f858ccc53832.png",
-//             "_id": "PmInA797xJhMIPti"
-// }
-const ProductCard = ({ product, handleAddToCart }) => {
   return (
     <Card className="card">
       <CardMedia component="img" height="140"
         image={product.image}
         alt={product.category}
       />
+
       <CardContent>
         <Typography gutterBottom component="div">
           {product.name}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          &#36;{product.cost}
+          ${product.cost}
         </Typography>
         <Rating name="half-rating-read" defaultValue={product.rating} precision={0.5} readOnly />
-        <br />
-        <br />
-        <Button className="card-button"><i class="fas fa-cart-plus"></i>&nbsp;ADD TO CART</Button>
       </CardContent>
+
+      <CardActions>
+        <Button
+          className="card-button"
+          onClick={() => handleAddToCart(token,
+            items, products, product._id, 1, { preventDuplicate: true })}>
+          <AddShoppingCartOutlined /> ADD TO CART
+        </Button>
+      </CardActions>
     </Card>
   );
 };

@@ -162,7 +162,7 @@ const Login = () => {
             isPostRequestRunningCurrently
               ?
               (
-                <Box display="flex" width={581.33} height={36.5} alignItems="center" justifyContent="center">
+                <Box display="flex" width={384} height={36.5} alignItems="center" justifyContent="center">
                   <CircularProgress size={36.5} />
                 </Box>
               )

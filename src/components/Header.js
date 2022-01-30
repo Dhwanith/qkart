@@ -1,14 +1,8 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Avatar, Button, Stack } from "@mui/material";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
-import {
-  CircularProgress,
-  Grid,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
-import React, { useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import "./Header.css";
 
 const Header = ({ children, hasHiddenAuthButtons }) => {

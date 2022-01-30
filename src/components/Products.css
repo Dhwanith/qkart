@@ -67,6 +67,6 @@
     display: none !important;
   }
   .search-desktop {
-    display: inline !important;
+    display: block !important;
   }
 }
