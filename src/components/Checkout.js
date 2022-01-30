@@ -216,7 +216,7 @@ const Checkout = () => {
     try {
       const postRequestURL = `${config.endpoint}/cart/checkout`;
       const postRequestBody = {
-        addressId: addresses.selected 
+        addressId: addresses.selected
       };
       const postRequestHeaders = {
         headers: {
@@ -233,7 +233,7 @@ const Checkout = () => {
       localStorage.setItem('balance', newBalance.toString());
 
       history.push('/thanks');
-    } catch(e) {
+    } catch (e) {
       if (e.response) {
         enqueueSnackbar(e.response.data.message, { variant: "error" });
       } else {
@@ -245,6 +245,12 @@ const Checkout = () => {
 
   useEffect(() => {
     const onLoadHandler = async () => {
+      if (!token) {
+        enqueueSnackbar("You must be logged in to access checkout page", { variant: "info" });
+        history.push('/');
+        return;
+      }
+
       getAddresses(token);
 
       const productsData = await getProducts();
@@ -257,7 +263,7 @@ const Checkout = () => {
     onLoadHandler();
   }, []);
 
-  
+
   const addressesContainer = (
     <>
       {
@@ -304,7 +310,7 @@ const Checkout = () => {
             <Typography color="#3C3C3C" variant="h4" my="1rem">
               Shipping
             </Typography>
-            
+
             <Typography color="#3C3C3C" my="1rem">
               Manage all the shipping addresses you want. This way you won't
               have to enter the shipping address manually with every order.
@@ -312,7 +318,7 @@ const Checkout = () => {
             </Typography>
 
             <Divider />
-            
+
             <Box>
               {
                 addresses.all.length !== 0 ?
@@ -381,7 +387,7 @@ const Checkout = () => {
         </Grid>
         <Grid item xs={12} md={4} bgcolor="#E9F5E1">
           <Cart isReadOnly={true} products={products} items={items} validateRequest={validateRequest}
-            addresses={addresses} performCheckout={performCheckout}/>
+            addresses={addresses} performCheckout={performCheckout} />
         </Grid>
       </Grid>
       <Footer />
